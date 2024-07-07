@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { CircleUser, Menu, Package2 } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItems } from "../App";
+import Gallery from "../pages/Gallery";
 
 const Layout = () => {
   return (
@@ -48,6 +49,9 @@ const Sidebar = () => (
               {item.title}
             </SidebarNavLink>
           ))}
+          <SidebarNavLink to="/gallery">
+            <span>Gallery</span>
+          </SidebarNavLink>
         </nav>
       </div>
     </div>
@@ -76,6 +80,9 @@ const MobileSidebar = () => (
             {item.title}
           </SidebarNavLink>
         ))}
+        <SidebarNavLink to="/gallery">
+          <span>Gallery</span>
+        </SidebarNavLink>
       </nav>
     </SheetContent>
   </Sheet>
