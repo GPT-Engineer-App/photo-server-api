@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchPhotos = async () => {
+  const response = await fetch("/api/photos");
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};
 
 const Gallery = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [photos, setPhotos] = useState([]);
-
-  useEffect(() => {
-    // TODO: Implement backend logic to fetch photos from the device
-    // Example: fetchPhotos().then(setPhotos);
-  }, []);
+  const { data: photos, error, isLoading } = useQuery({
+    queryKey: ["photos"],
+    queryFn: fetchPhotos,
+  });
 
   const handleSearch = () => {
     // TODO: Implement backend logic to filter photos based on categories
-    // Example: filterPhotos(searchTerm).then(setPhotos);
     console.log("Search term:", searchTerm);
   };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading photos</p>;
 
   return (
     <div className="p-4">
